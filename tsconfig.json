@@ -1,0 +1,14 @@
+{
+  "extends": "@tsconfig/node14",
+  "compilerOptions": {
+    "outDir": "./lib",
+    "rootDir": "./src",
+    "strict": true,
+    "noImplicitAny": false,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "declaration": false,
+    "sourceMap": true,
+  },
+}

@@ -1,0 +1,24 @@
+name: 'Sifter comment'
+description: 'Post a comment on Sifter using Github Actions.'
+author: 'felixmosh'
+branding:
+  icon: 'chevrons-up'
+  color: 'yellow'
+
+inputs:
+  company-name:
+    description: 'Sifter company name'
+    required: true
+  project-id:
+    description: 'Sifter project ID'
+    required: true
+  sifter-token:
+    description: 'Sifter access token'
+    required: true
+  comment-template:
+    description: 'Comment template'
+    required: true
+
+runs:
+  using: 'node14'
+  main: 'dist/index.js'
