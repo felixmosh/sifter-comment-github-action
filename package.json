@@ -7,7 +7,8 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "ncc build src/index.ts -o dist/ && git add -f dist/",
-    "release": "release-it --only-version"
+    "release": "release-it --only-version && yarn update:v1",
+    "update:v1": "git tag -d v1 && git push --delete origin v1 && git tag v1 && git push origin --tags"
   },
   "devDependencies": {
     "@actions/core": "^1.9.0",
