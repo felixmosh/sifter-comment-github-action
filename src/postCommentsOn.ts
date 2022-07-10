@@ -1,4 +1,4 @@
-import { error } from '@actions/core';
+import { error, info } from '@actions/core';
 import { getConfig } from './getConfig';
 import { SifterApi } from './sifterApi';
 
@@ -17,12 +17,21 @@ export async function postCommentsOn(issueNumbers: string[], tag: string) {
 
   const comment = config.COMMENT_TEMPLATE.replace('${tag}', tag);
 
+  if (issueIds.length === 0) {
+    info('No relevant issues found.');
+  }
+
   await Promise.all(
     issueIds.map((issue) =>
-      sifterApi.postComment(comment, issue.id).catch((e) => {
-        console.error(e.response?.data);
-        error(`Failed to post a comment of issue #${issue.number}`);
-      })
+      sifterApi
+        .postComment(comment, issue.id)
+        .then(() => {
+          info(`Posted successfully on #${issue.number}.`);
+        })
+        .catch((e) => {
+          console.error(e.response?.data);
+          error(`Failed to post a comment of issue #${issue.number}`);
+        })
     )
   );
 }
