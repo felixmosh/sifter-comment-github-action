@@ -10927,7 +10927,15 @@ async function postCommentsOn(issueNumbers, tag) {
         number: issue.number,
     }));
     const comment = config.COMMENT_TEMPLATE.replace('${tag}', tag);
-    await Promise.all(issueIds.map((issue) => sifterApi.postComment(comment, issue.id).catch((e) => {
+    if (issueIds.length === 0) {
+        (0,core.info)('No relevant issues found.');
+    }
+    await Promise.all(issueIds.map((issue) => sifterApi
+        .postComment(comment, issue.id)
+        .then(() => {
+        (0,core.info)(`Posted successfully on #${issue.number}.`);
+    })
+        .catch((e) => {
         console.error(e.response?.data);
         (0,core.error)(`Failed to post a comment of issue #${issue.number}`);
     })));
