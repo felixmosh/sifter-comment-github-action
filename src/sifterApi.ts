@@ -20,7 +20,7 @@ export class SifterApi {
 
   public getProjectIssues(): Promise<ISifterIssue[]> {
     return this.axios
-      .get(`/projects/${this.projectId}/issues`)
+      .get(`/projects/${this.projectId}/issues?srt=created&d=d`)
       .then(({ data }) => data?.issues || []);
   }
 
