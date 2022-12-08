@@ -18,7 +18,7 @@ export async function getTagsRange(): Promise<Readonly<[string, string]>> {
   }
   const tagRange = [tags[0], tags[1]] as const;
 
-  info(`Got the following tag ranges: ${tagRange.join('...')}\n`);
+  info(`Got the following tag ranges: ${tagRange.join(' ... ')}\n`);
 
   return tagRange;
 }

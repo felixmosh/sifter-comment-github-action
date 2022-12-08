@@ -12,7 +12,7 @@ export async function getCommitMessagesBetween(
 
   const messages = stdout.split('\n');
 
-  info(`Found the following git messages: \n\n${messages}\n`);
+  info(`Found the following git messages: \n\n${messages.join('\n')}\n`);
 
   return messages;
 }
