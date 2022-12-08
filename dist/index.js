@@ -10845,21 +10845,36 @@ function execaNode(scriptPath, args, options = {}) {
 
 ;// CONCATENATED MODULE: ./src/getCommitMessagesBetween.ts
 
+
 async function getCommitMessagesBetween(tagRanges) {
-    const { stdout } = await execa('git', ['log', '--pretty=format:%s', tagRanges.join('...')]);
-    return stdout.split('\n');
+    const { stdout } = await execa('git', [
+        'log',
+        '--pretty=format:%s',
+        tagRanges.join('...'),
+    ]);
+    const messages = stdout.split('\n');
+    (0,core.info)(`Found the following git messages: \n\n${messages}\n`);
+    return messages;
 }
 
 ;// CONCATENATED MODULE: ./src/getTagsRange.ts
 
+
 async function getTagsRange() {
-    const { stdout: revList } = await execa('git', ['rev-list', '--tags', '--max-count=2']);
+    const expectedTags = 2;
+    const { stdout: revList } = await execa('git', [
+        'rev-list',
+        '--tags',
+        `--max-count=${expectedTags}`,
+    ]);
     const { stdout } = await execa('git', ['describe', '--abbrev=0', '--tags'].concat(revList.split('\n')));
     const tags = stdout.split('\n');
-    if (tags.length !== 2) {
+    if (tags.length !== expectedTags) {
         throw new Error('Tags range not found');
     }
-    return [tags[0], tags[1]];
+    const tagRange = [tags[0], tags[1]];
+    (0,core.info)(`Got the following tag ranges: ${tagRange.join('...')}\n`);
+    return tagRange;
 }
 
 ;// CONCATENATED MODULE: ./src/getConfig.ts
@@ -10891,7 +10906,7 @@ class SifterApi {
     constructor(config) {
         this.projectId = config.PROJECT_ID;
         this.axios = axios_default().create({
-            baseURL: `https://${config.COMPANY_NAME}.sifterapp.com//api`,
+            baseURL: `https://${config.COMPANY_NAME}.sifterapp.com/api`,
             headers: {
                 'x-sifter-token': config.SIFTER_TOKEN,
                 Accept: '*/*',
@@ -10917,6 +10932,7 @@ class SifterApi {
 
 
 async function postCommentsOn(issueNumbers, tag) {
+    (0,core.info)(`Posting comments on ${issueNumbers.join(', ')}\n`);
     const config = getConfig();
     const sifterApi = new SifterApi(config);
     const issues = await sifterApi.getProjectIssues();
