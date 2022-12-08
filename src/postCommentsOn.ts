@@ -3,6 +3,8 @@ import { getConfig } from './getConfig';
 import { SifterApi } from './sifterApi';
 
 export async function postCommentsOn(issueNumbers: string[], tag: string) {
+  info(`Posting comments on ${issueNumbers.join(', ')}\n`);
+
   const config = getConfig();
   const sifterApi = new SifterApi(config);
 
