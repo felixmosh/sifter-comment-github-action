@@ -10853,7 +10853,7 @@ async function getCommitMessagesBetween(tagRanges) {
         tagRanges.join('...'),
     ]);
     const messages = stdout.split('\n');
-    (0,core.info)(`Found the following git messages: \n\n${messages}\n`);
+    (0,core.info)(`Found the following git messages: \n\n${messages.join('\n')}\n`);
     return messages;
 }
 
@@ -10873,7 +10873,7 @@ async function getTagsRange() {
         throw new Error('Tags range not found');
     }
     const tagRange = [tags[0], tags[1]];
-    (0,core.info)(`Got the following tag ranges: ${tagRange.join('...')}\n`);
+    (0,core.info)(`Got the following tag ranges: ${tagRange.join(' ... ')}\n`);
     return tagRange;
 }
 
@@ -10915,7 +10915,7 @@ class SifterApi {
     }
     getProjectIssues() {
         return this.axios
-            .get(`/projects/${this.projectId}/issues`)
+            .get(`/projects/${this.projectId}/issues?srt=created&d=d`)
             .then(({ data }) => data?.issues || []);
     }
     postComment(comment, issueId) {
