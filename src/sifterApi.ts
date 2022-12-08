@@ -10,7 +10,7 @@ export class SifterApi {
     this.projectId = config.PROJECT_ID;
 
     this.axios = axios.create({
-      baseURL: `https://${config.COMPANY_NAME}.sifterapp.com//api`,
+      baseURL: `https://${config.COMPANY_NAME}.sifterapp.com/api`,
       headers: {
         'x-sifter-token': config.SIFTER_TOKEN,
         Accept: '*/*',
