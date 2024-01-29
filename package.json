@@ -8,7 +8,7 @@
   "scripts": {
     "build": "ncc build src/index.ts -o dist/ && git add -f dist/",
     "release": "release-it --only-version && yarn update:major-tag",
-    "update:major-tag": "git tag -d v2 && git push --delete origin v2 && git tag v2 && git push origin --tags"
+    "update:major-tag": "TAG=$(git describe --tags `git rev-list --tags --max-count=1` | cut -b 1-2) && git tag -d $TAG && git push --delete origin $TAG && git tag $TAG && git push origin --tags"
   },
   "devDependencies": {
     "@actions/core": "^1.10.1",
