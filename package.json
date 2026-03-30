@@ -1,6 +1,6 @@
 {
   "name": "sifter-comment-github-action",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "A Sifter comment github action",
   "license": "MIT",
   "author": "felixmosh",
