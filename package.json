@@ -12,10 +12,10 @@
   },
   "devDependencies": {
     "@actions/core": "^3.0.0",
+    "@rslib/core": "^0.20.2",
     "@tsconfig/node24": "^24.0.0",
     "@types/node": "^24.0.0",
-    "@rslib/core": "^0.20.2",
-    "axios": "^1.14.0",
+    "axios": "^1.13.6",
     "execa": "^9.6.1",
     "prettier": "^3.8.1",
     "release-it": "^19.2.4",
@@ -40,5 +40,6 @@
     "npm": {
       "publish": false
     }
-  }
+  },
+  "packageManager": "yarn@4.12.0"
 }
